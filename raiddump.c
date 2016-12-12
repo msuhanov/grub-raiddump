@@ -83,30 +83,30 @@ grub_cmd_raiddump (grub_command_t cmd __attribute__ ((unused)), int argc, char *
   grub_uint64_t size_disk_in, size_disk_out;
   size_disk_in = grub_disk_get_size (disk_in);
   if ( size_disk_in == GRUB_DISK_SIZE_UNKNOWN )
-  {
+    {
       grub_free (filename_in);
       grub_free (filename_out);
       grub_disk_close (disk_in);
       grub_disk_close (disk_out);
       return grub_error (GRUB_ERR_BAD_DEVICE, N_("size of the source device is unknown"));
-  }
+    }
 
   size_disk_out = grub_disk_get_size (disk_out);
   if ( size_disk_out == GRUB_DISK_SIZE_UNKNOWN )
-  {
+    {
       grub_free (filename_in);
       grub_free (filename_out);
       grub_disk_close (disk_in);
       grub_disk_close (disk_out);
       return grub_error (GRUB_ERR_BAD_DEVICE, N_("size of the target device is unknown"));
-  }
+    }
 
   grub_uint64_t copy_len;
   copy_len = size_disk_in;
   if ( dump_mode == 1 )
     copy_len = 20480;
 
-  grub_printf ("Source: %s (size, sectors: %llu)\nTarget: %s (size, sectors: %llu)\n", &filename_in[1], size_disk_in, &filename_out[1], size_disk_out);
+  grub_printf (N_("Source: %s (size, sectors: %llu)\nTarget: %s (size, sectors: %llu)\n"), &filename_in[1], size_disk_in, &filename_out[1], size_disk_out);
 
   grub_disk_addr_t i;
   grub_uint64_t b_written;
@@ -123,7 +123,7 @@ grub_cmd_raiddump (grub_command_t cmd __attribute__ ((unused)), int argc, char *
       b_written += sizeof(buf);
     }
 
-  grub_printf ("Wrote: %llu bytes\n", b_written);
+  grub_printf (N_("Wrote: %llu bytes\n"), b_written);
 
   grub_free (filename_in);
   grub_free (filename_out);
